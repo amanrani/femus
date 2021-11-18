@@ -310,6 +310,7 @@ INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/include)
 # HPCC TTU
 INCLUDE_DIRECTORIES(/opt/ohpc/pub/mpi/openmpi-gnu/1.10.6/include/)
 INCLUDE_DIRECTORIES(/opt/ohpc/pub/libs/gnu/openmpi/boost/1.63.0/include/)
+INCLUDE_DIRECTORIES(/opt/local/include/)
 
 # Include Fparser files
 IF(FPARSER_FOUND)
