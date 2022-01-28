@@ -6,7 +6,7 @@ PROJECT(femus)
 ### Source files
 #############################################################################################
 
-SET(femus_src 
+SET(femus_src
 00_utils/FemusInit.cpp
 00_utils/Files.cpp
 00_utils/input_parser/InputParser.cpp
@@ -107,13 +107,13 @@ uq/sparseGrid.cpp
 )
 
 # IF(HAVE_HDF5)
-#   SET(femus_src ${femus_src} 
+#   SET(femus_src ${femus_src}
 #   01_mesh/input/MED_IO.cpp
 #   02_solution/01_output/XDMFWriter.cpp
 #   01_mesh/gencase/GenCase.cpp
 #   03_equations/TimeLoop.cpp
 #   )
-# ENDIF(HAVE_HDF5) 
+# ENDIF(HAVE_HDF5)
 
 IF (NOT LIBRARY_OUTPUT_PATH)
   SET (LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib64 CACHE PATH
@@ -123,18 +123,33 @@ ENDIF (NOT LIBRARY_OUTPUT_PATH)
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED ${femus_src})
 
+
+
+# This is a cheap hack to fix linker errors during compilation
 IF(APPLE)
-target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libhdf5.dylib)
-target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libmpi.dylib)
-target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libpetsc.dylib)
-target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libmetis.dylib)
-# target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libjsoncpp.dylib)
-# target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libadept.a)
-# target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libb64.a)
-
-#target_link_libraries(${PROJECT_NAME} ${PETSC_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${B64_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${JSONCPP_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${ADEPT_LIBRARIES})
-
+  target_link_libraries(${PROJECT_NAME} ${HDF5_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${PETSC_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${B64_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${JSONCPP_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${METIS_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${ADEPT_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${SLEPC_LIB})
+  target_include_directories(${PROJECT_NAME} PUBLIC ${SLEPC_INC})
+  target_include_directories(${PROJECT_NAME} PUBLIC ${SLEPC_DIR})
 ENDIF(APPLE)
+
+# IF(APPLE)
+# target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libhdf5.dylib)
+# target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libmpi.dylib)
+# target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libpetsc.dylib)
+# target_link_libraries(${PROJECT_NAME} ${PETSC_DIR}/${PETSC_ARCH}/lib/libmetis.dylib)
+# # target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libjsoncpp.dylib)
+# # target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libadept.a)
+# # target_link_libraries(${PROJECT_NAME} ${LIBRARY_OUTPUT_PATH}/libb64.a)
+
+# # target_link_libraries(${PROJECT_NAME} ${PETSC_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME} ${B64_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME} ${JSONCPP_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME} ${ADEPT_LIBRARIES})
+
+# ENDIF(APPLE)

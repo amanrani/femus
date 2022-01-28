@@ -40,7 +40,7 @@ if test "$1" != "--prefix-basepath"; then
 echo "The first argument must be --prefix-basepath"; return 18;
 fi
 
- EXTERNAL_BASEPATH=`readlink -f $2`
+ EXTERNAL_BASEPATH=`readlink  $2`
 
 ############# MACHINE DEPENDENT ###################
  FM_BASEPATH_TO_MPI=$EXTERNAL_BASEPATH    #NOW ALL THESE VARIABLES will APPEAR IN THE ENVIRONMENT... even if you don't put EXPORT... TODO see if i can improve this
@@ -92,7 +92,7 @@ if test "$3" != "--method"; then
 echo "The third argument must be --method"; return 18;
 fi
 
-EXTERNAL_BASEPATH=`readlink -f $2`
+EXTERNAL_BASEPATH=/Users/amanrani   #`readlink  $2`
 PETSC_METHOD=$4
 
 
@@ -105,7 +105,7 @@ fi
 ############ MACHINE DEPENDENT ###################
        FM_BASEPATH_TO_PETSC=$EXTERNAL_BASEPATH
        FM_PETSC_FOLDER=petsc
-export PETSC_ARCH=arch-linux2-cxx-$PETSC_METHOD
+export PETSC_ARCH=arch-darwin-c-$PETSC_METHOD
 ############ END MACHINE DEPENDENT ###################
 
 export PETSC_DIR=$FM_BASEPATH_TO_PETSC/$FM_PETSC_FOLDER
@@ -138,7 +138,7 @@ if test "$1" != "--prefix-basepath"; then
 echo "The first argument must be --prefix-basepath"; return 18;
 fi
 
-EXTERNAL_BASEPATH=`readlink -f $2`
+EXTERNAL_BASEPATH=`readlink  $2`
 
 ############ MACHINE DEPENDENT ###################
        FM_BASEPATH_TO_SLEPC=$EXTERNAL_BASEPATH
@@ -186,7 +186,7 @@ if test "$5" != "--method-petsc"; then
 echo "Use --method-petsc for Petsc method "; return;
 fi
 
-EXTERNAL_BASEPATH=`readlink -f $2`
+EXTERNAL_BASEPATH=`readlink  $2`
 LIBMESH_METHOD=$4
 PETSC_METHOD=$6
 
@@ -250,7 +250,8 @@ echo " --prefix-external EXTERNAL_PATH --method-petsc {opt,dbg} --method-libmesh
 return;
 fi
 
-EXTERNAL_PREFIX=`readlink -f $2`
+EXTERNAL_PREFIX=/Users/amanrani    #`readlink  $2`
+echo "------- " $EXTERNAL_PREFIX
 PETSC_METHOD=$4
 LIBMESH_METHOD=$6
 

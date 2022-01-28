@@ -57,7 +57,6 @@ MARK_AS_ADVANCED (
 #############################################################################################
 ### Find packages
 #############################################################################################
-
 # Find Petsc Library
 FIND_PACKAGE(PETSc REQUIRED)
 MESSAGE(STATUS "PETSC_FOUND = ${PETSC_FOUND}")
