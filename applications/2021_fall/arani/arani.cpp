@@ -268,7 +268,7 @@ void neumann_loop_2d3d(const MultiLevelProblem *    ml_prob,
 // Changes by Aman
 double RHS(const std::vector < double >& x_qp) {
    double r = 4*x_qp[2]*(x_qp[2] - 1)  +  2*((x_qp[0] - 1)*(x_qp[0] - 1)  +  (x_qp[1] - 1)*(x_qp[1] - 1) - 1);
-  return r;
+  return -r;
 };
 
 
@@ -301,7 +301,7 @@ int main(int argc, char** args) {
   
    
      mesh_files.push_back("assignment_mesh_cylinder_tetrahedral_new.med");
-     mesh_files.push_back("assignment_mesh_cylinder_hexahedral_new.med");
+//      mesh_files.push_back("assignment_mesh_cylinder_hexahedral_new.med");
 //    mesh_files.push_back("assignment_mesh_cylinder_tetrahedron2.med");
 //      mesh_files.push_back("assignment_mesh_cylinder_hexahedron.med");
 //    mesh_files.push_back("Mesh_1_x_dir_neu_fine.med");   
